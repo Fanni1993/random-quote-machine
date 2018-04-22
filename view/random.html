@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Random Quote Machine </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+
+   
+  <div class="bg">
+    <h1> Random Quote for you! </h1>
+    <div class="container">
+      <h2></h2>
+      <h3></h3>
+    </div>
+  <div class="button-container">
+    <div class="quote-button">
+    <button  class="btn btn-primary btn-group btn-group-large" type="submit">Get a quote</button>
+  </div>
+  <div class="tweet">
+    
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet
+        </a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+        
+   
+  </div>
+  </div>
+ 
+
+</body>
+<script>
+ $('.quote-button').click(function(event) {
+   event.preventDefault();
+ 
+   $.ajax({
+    url: 'https://random-quote-generator.herokuapp.com/api/quotes/random',
+    type: 'GET',
+   dataType: 'json', 
+      success: function(data) {
+        console.log(data)
+        var quote = data.quote;
+        var author = data.author;
+        $('h2').text(quote)
+        $('h3').text(author)
+        $( "h2,h3" ).fadeIn( "slow", function() {
+          $('.quote-button').click(function(event) {
+   event.preventDefault();
+   $('h2,h3').fadeOut('slow')
+   $('h2,h3').css('display','none')
+    // Animation complete
+})
+});
+      },
+      error: function() {
+         $('h2').html('an error occured')
+      }
+   });
+
+});
+
+</script>
+
+<style>
+body,html{
+  text-align: center;
+ position: relative;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/1c/Book_sale_loot_%284552277923%29.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bg{
+
+ 
+
+
+
+
+}
+.quote-button{
+  margin-top: 0px;
+  margin-bottom: 50px;
+
+
+}
+h1{
+  margin-top: 200px;
+  
+}
+h1,h2,small{
+color: white;
+  margin-bottom: 20px;
+}
+h2,h3{
+  display: none;
+}
+</style>
+</html>
+
